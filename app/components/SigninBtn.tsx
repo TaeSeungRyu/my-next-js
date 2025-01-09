@@ -6,15 +6,15 @@ export default function SigninBtn() {
   if (session) {
     return (
       <>
-        Signed in as {session.user?.email} <br />
         <button onClick={() => signOut()}>Sign out</button>
+        <div>* 로그인 후 정보 : {session.user?.role?.toString()}</div>
       </>
     );
   }
   return (
     <>
-      Not signed in <br />
       <button onClick={() => signIn()}>Sign in</button>
+      <div>* 아직 로그인이 되지 않았습니다.</div>
     </>
   );
 }
