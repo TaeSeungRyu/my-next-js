@@ -28,6 +28,7 @@ export const authOptions = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            ...req.headers,
           },
           credentials: "include",
           body: JSON.stringify(params),
@@ -67,8 +68,8 @@ const handler = NextAuth({
     sessionToken: {
       name: "next-auth.session-token",
       options: {
-        httpOnly: false,
-        sameSite: "None", // 개발 환경에서는 lax로 설정
+        httpOnly: true,
+        sameSite: "lax", // 개발 환경에서는 lax로 설정
         path: "/",
         secure: false,
       },
