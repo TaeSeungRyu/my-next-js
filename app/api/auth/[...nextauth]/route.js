@@ -20,23 +20,28 @@ export const authOptions = {
       async authorize(credentials, req) {
         const loginUrl = `${req.headers["origin"]}/api-server/login`; //fetch는 full url을 요구 합니다.
         const params = {
-          adminUsername: "fi000001",
-          adminPassword: "admin1234!",
+          adminUsername: process.env.TEST_ID,
+          adminPassword: process.env.TEST_PASSWORD,
         };
-        const res = await fetch(loginUrl, {
+        const requestResult = await fetch(loginUrl, {
           //API 서버에 로그인 요청
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            ...req.headers,
           },
           credentials: "include",
           body: JSON.stringify(params),
         }).catch((e) => e);
         try {
-          if (res.status === 200) {
-            await res.json(); //API 서버에서 받은 데이터를 사용자 정보
-            //console.log(data);
+          if (requestResult.status === 200) {
+            const requestToJson = await requestResult.json(); //API 서버에서 받은 데이터를 사용자 정보
+            return {
+              id: 1,
+              name: "asdf",
+              email: "asdf@a.com",
+              role: ["bbb", "eee", "ggg", "qqq", "eeee"].join(","), //사용자 정의 필드 추가
+              accessToken: requestToJson?.data?.accessToken,
+            };
           }
         } catch (e) {
           console.log(e);
@@ -46,6 +51,7 @@ export const authOptions = {
           name: "testName",
           email: "test@a.com",
           role: ["aaaa", "bbbb", "cccc", "dddd", "eeee"].join(","), //사용자 정의 필드 추가
+          accessToken: "testAccessToken",
         }; //사용자 정보를 리턴, 원하는 방법으로 가공
       },
     }),
@@ -78,11 +84,16 @@ const handler = NextAuth({
   providers: authOptions.providers,
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = user.role; //사용자 정의 필드 추가
+      if (user) {
+        token.role = user.role; //사용자 정의 필드 추가
+        token.accessToken = user.accessToken; //사용자 정의 필드 추가
+      }
       return token;
     },
     async session({ session, token }) {
       if (session.user && token.role) session.user.role = token.role; //사용자 정의 필드 추가
+      if (session.accessToken && token.accessToken)
+        session.user.accessToken = token.accessToken; //사용자 정의 필드 추가
       return session;
     },
   },

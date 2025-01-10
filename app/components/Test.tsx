@@ -2,16 +2,12 @@
 
 export default function Test() {
   const gogogo = () => {
-    fetch("http://localhost:3000/api-server/test", {
+    fetch("http://localhost:3000/api-server/login/permission", {
       //API 서버에 로그인 요청
-      method: "POST",
+      method: "get",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        username: "aasdf",
-        password: "asdf",
-      }),
     }).catch((e) => {
       console.log(e);
     });
