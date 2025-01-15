@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-
+const path = require("path");
 const nextConfig: NextConfig = {
   env: {
     SECRET: process.env.SECRET,
@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
     API_SERVER_UR: process.env.API_SERVER_URL,
     TEST_ID: process.env.TEST_ID,
     TEST_PASSWORD: process.env.TEST_PASSWORD,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
   compress: true,
   images: {
@@ -29,6 +30,9 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  //output: "standalone",
+  //assetPrefix: "",
+  //distDir: ".next",
 };
 
 export default nextConfig;

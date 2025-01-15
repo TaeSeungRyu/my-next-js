@@ -31,8 +31,10 @@ export const authOptions = {
           body: JSON.stringify(params),
         }).catch((e) => e);
         try {
+          console.log("api call test : ", requestResult.status);
           if (requestResult.status === 200) {
             const requestToJson = await requestResult.json(); //API 서버에서 받은 데이터를 사용자 정보
+            console.log("api call requestToJson : ", requestToJson);
             return {
               id: 1,
               name: "asdf",
