@@ -16,7 +16,7 @@ export default function Home() {
             <HandleBtn></HandleBtn>
           </div>
         </div>
-        <div className="mt-[55px] flex flex-col">
+        <div className="mt-[55px] flex flex-col hover:text-blue-500">
           <Link
             href={{
               pathname: "/board",
@@ -31,6 +31,34 @@ export default function Home() {
             }}
           >
             로그인이 필요한 페이지로 이동
+          </Link>
+          <Link
+            href={{
+              pathname: "/fetching",
+            }}
+          >
+            패칭 연습
+          </Link>
+          <Link
+            href={{
+              pathname: "/dynamic-route/원하는값",
+            }}
+          >
+            동적 라우팅
+          </Link>
+          <Link
+            href={{
+              pathname: "/test1",
+            }}
+          >
+            test1 페이지 이동(라우트 그룹)
+          </Link>
+          <Link
+            href={{
+              pathname: "/test2",
+            }}
+          >
+            test2 페이지 이동(라우트 그룹)
           </Link>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import Link from "next/link";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/utils/authOptions";
 
 export default async function SecurePage() {
   const session = await getServerSession(authOptions);
