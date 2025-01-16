@@ -34,15 +34,20 @@ WORKDIR /app
 COPY --from=base /app/.next .next
 COPY --from=base /app/package.json package.json
 COPY --from=base /app/yarn.lock yarn.lock
-COPY --from=base /app/.yarn .yarn
+#COPY --from=base /app/.yarn .yarn
 COPY --from=base /app/.yarnrc.yml .yarnrc.yml
-COPY --from=base /app/.pnp.loader.mjs .pnp.loader.mjs
-COPY --from=base /app/.pnp.cjs .pnp.cjs
+#COPY --from=base /app/.pnp.loader.mjs .pnp.loader.mjs
+#COPY --from=base /app/.pnp.cjs .pnp.cjs
+COPY --from=base /app/.next/static .next/standalone/.next/static
+COPY --from=base /app/.next/static .next/standalone/static
+COPY --from=base /app/public .next/standalone/public
+
 
 # 9. Expose the application port
 EXPOSE 3000
 
-ENV NODE_OPTIONS="--require ./.pnp.cjs"  
+#ENV NODE_OPTIONS="--require ./.pnp.cjs"  
 
 # 10. Run the application
-CMD ["yarn", "start"]
+#CMD ["yarn", "start"]
+CMD ["node", ".next/standalone/server.js"]
