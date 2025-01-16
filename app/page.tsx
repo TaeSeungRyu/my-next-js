@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SigninBtn from "./components/SigninBtn";
 import { HandleBtn } from "./components/HandleBtn";
+import DarkModeBtn from "./components/DarkModeBtn";
 
 export default function Home() {
   return (
@@ -61,6 +62,7 @@ export default function Home() {
             test2 페이지 이동(라우트 그룹)
           </Link>
         </div>
+        <DarkModeBtn></DarkModeBtn>
       </div>
     </div>
   );

@@ -22,7 +22,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} text-[#119595]`}>
+      <body
+        className={`${geistSans.variable} text-[#119595] dark:bg-gray-900 text-black dark:text-white`}
+      >
         <AttributeProviders>{children}</AttributeProviders>
       </body>
     </html>
