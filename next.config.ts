@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 const path = require("path");
 const nextConfig: NextConfig = {
   env: {
-    SECRET: process.env.SECRET,
     GOOGLE_ID: process.env.GOOGLE_ID,
     GOOGLE_SECRET: process.env.GOOGLE_SECRET,
     API_SERVER_UR: process.env.API_SERVER_URL,
@@ -30,9 +29,8 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
   output: "standalone",
-  //assetPrefix: "",
-  //distDir: ".next",
 };
 
 export default nextConfig;

@@ -15,8 +15,9 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       //요청 샘플 입니다.
-      async authorize(credentials, req) {
-        const loginUrl = `${req.headers["origin"]}/api-server/login`; //fetch는 full url을 요구 합니다.
+      async authorize() {
+        //credentials, req
+        const loginUrl = `${process.env.API_SERVER_URL}/login`; //fetch는 full url을 요구 합니다.
         const params = {
           adminUsername: process.env.TEST_ID,
           adminPassword: process.env.TEST_PASSWORD,
@@ -31,7 +32,6 @@ export const authOptions = {
           body: JSON.stringify(params),
         }).catch((e) => e);
         try {
-          console.log("api call test : ", requestResult.status);
           if (requestResult.status === 200) {
             const requestToJson = await requestResult.json(); //API 서버에서 받은 데이터를 사용자 정보
             console.log("api call requestToJson : ", requestToJson);

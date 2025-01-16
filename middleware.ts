@@ -5,7 +5,7 @@ const _addAuthHeader = async (request: NextRequest, headers: Headers) => {
   try {
     const tokens = await getToken({
       req: request,
-      secret: process.env.SECRET,
+      secret: process.env.NEXTAUTH_SECRET,
       raw: true, // JWT 토큰을 직접 처리
       cookieName: "next-auth.session-token",
     });
@@ -14,7 +14,7 @@ const _addAuthHeader = async (request: NextRequest, headers: Headers) => {
     }
     const savedValue = await decode({
       token: tokens,
-      secret: process.env.SECRET || "",
+      secret: process.env.NEXTAUTH_SECRET || "",
     });
     headers.set("Authorization", `Bearer ${savedValue?.accessToken}`); //여기에 Auth같은 헤더 추가를 하면 됩니다.
   } catch (e) {
