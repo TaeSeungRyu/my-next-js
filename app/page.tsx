@@ -61,6 +61,13 @@ export default function Home() {
           >
             test2 페이지 이동(라우트 그룹)
           </Link>
+          <Link
+            href={{
+              pathname: "/hydrate-dehydrate",
+            }}
+          >
+            tanstack query를 활용한 hydrate / dehydrate
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>

@@ -20,11 +20,17 @@ export default function DarkModeBtn() {
   };
 
   return (
-    <button
-      onClick={toggleDarkMode}
-      className="px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded"
-    >
-      {darkMode ? "다크모드" : "일반모드"}
-    </button>
+    <>
+      <div>
+        다크모드의 상태가 글로벌이 아니므로 다른 페이지에서 새로고침하면
+        사라집니다!
+      </div>
+      <button
+        onClick={toggleDarkMode}
+        className="animate-spin-slow px-4 py-2 bg-gray-200 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded"
+      >
+        {darkMode ? "다크모드" : "일반모드"}
+      </button>
+    </>
   );
 }
