@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import AttributeProviders from "./providers/AttributeProviders";
 
@@ -26,6 +27,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} text-[#119595] dark:bg-gray-900 text-black dark:text-white`}
       >
+        <NextTopLoader color="red" crawlSpeed={500} />
         <AttributeProviders>{children}</AttributeProviders>
       </body>
     </html>

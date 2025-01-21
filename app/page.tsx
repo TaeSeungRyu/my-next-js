@@ -68,6 +68,14 @@ export default function Home() {
           >
             tanstack query를 활용한 hydrate / dehydrate
           </Link>
+
+          <Link
+            href={{
+              pathname: "/context-sample",
+            }}
+          >
+            context 사용 샘플
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>

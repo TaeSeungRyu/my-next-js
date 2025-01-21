@@ -6,5 +6,5 @@ export default function ModeThemProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return <ThemeProvider attribute={"class"}>{children}</ThemeProvider>;
 }
