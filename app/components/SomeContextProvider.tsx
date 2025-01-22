@@ -6,9 +6,7 @@ export const SomeContext = createContext({
   someData: "",
   setSomeData: (data: string) => {},
   someLocalStorageData: "",
-  setSomeLocalStorageData: (data: string) => {
-    localStorage.setItem("someLocalStorageData", data);
-  },
+  setSomeLocalStorageData: (data: string) => {},
 });
 
 type Props = { children: ReactNode };
