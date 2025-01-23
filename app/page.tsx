@@ -82,6 +82,13 @@ export default function Home() {
           >
             firebase 사용 샘플
           </Link>
+          <Link
+            href={{
+              pathname: "/third-party-example",
+            }}
+          >
+            외부 라이브러리 연동
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>
