@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore/lite";
+import { getFirestore } from "firebase/firestore/lite"; //lite 패키지는 서버에서 사용
+import { getFirestore as getFirestoreClient } from "firebase/firestore"; //클라이언트에서 사용
 
 const firebaseConfig = {
   apiKey: process.env.FIRE_BASE_APIKEY,
@@ -12,6 +13,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-const fireStore = getFirestore(firebaseApp);
+const fireStore = getFirestore(firebaseApp); //서버에서 사용할 firestore
+const fireStoreClient = getFirestoreClient(firebaseApp); //클라이언트에서 사용할 firestore
 
-export { firebaseApp, fireStore };
+export { firebaseApp, fireStore, fireStoreClient };
