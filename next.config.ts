@@ -4,12 +4,7 @@ const nextConfig: NextConfig = {
   // redirects: async () => {
   //   return [
   //     {
-  //       source: "/mobile/:path*", // 이미 /mobile 경로에 있는 요청은 리다이렉션 제외
-  //       destination: "/mobile/:path*", // 원래 경로로 유지
-  //       permanent: false,
-  //     },
-  //     {
-  //       source: "/:path*", // 모든 경로
+  //       source: "/:path*", // "/mobile"이 아닌 경로만 리디렉트
   //       destination: "/mobile/:path*", // 모바일 디바이스는 /mobile 경로로 리다이렉트
   //       permanent: true,
   //       has: [
@@ -17,6 +12,31 @@ const nextConfig: NextConfig = {
   //           type: "header",
   //           key: "User-Agent",
   //           value: "(.*Mobil.*)", // User-Agent에 'Mobil' 포함 시
+  //         },
+  //       ],
+  //       missing: [
+  //         {
+  //           type: "cookie",
+  //           key: "x-custom-mobile-cookie",
+  //           value: "true", // User-Agent에 'Mobil' 포함 시
+  //         },
+  //       ],
+  //     },
+  //   ];
+  // },
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/mobile/:path*", //커스텀 해더 추가 경로
+  //       headers: [
+  //         //원하는 커스텀 헤더
+  //         {
+  //           key: "x-custom-mobile-header",
+  //           value: "mobile header",
+  //         },
+  //         {
+  //           key: "Set-Cookie",
+  //           value: "x-custom-mobile-cookie=true; Path=/; HttpOnly",
   //         },
   //       ],
   //     },
@@ -58,20 +78,6 @@ const nextConfig: NextConfig = {
     ];
   },
   output: "standalone",
-  async headers() {
-    return [
-      {
-        source: "/mobile/:path*", //커스텀 해더 추가 경로
-        headers: [
-          //원하는 커스텀 헤더
-          {
-            key: "x-custom-mobile-header",
-            value: "mobile header",
-          },
-        ],
-      },
-    ];
-  },
 };
 
 export default nextConfig;
