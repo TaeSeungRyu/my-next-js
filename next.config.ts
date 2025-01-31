@@ -58,6 +58,20 @@ const nextConfig: NextConfig = {
     ];
   },
   output: "standalone",
+  async headers() {
+    return [
+      {
+        source: "/mobile/:path*", //커스텀 해더 추가 경로
+        headers: [
+          //원하는 커스텀 헤더
+          {
+            key: "x-custom-mobile-header",
+            value: "mobile header",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

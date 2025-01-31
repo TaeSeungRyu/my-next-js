@@ -89,6 +89,13 @@ export default function Home() {
           >
             외부 라이브러리 연동
           </Link>
+          <Link
+            href={{
+              pathname: "/record-query/list",
+            }}
+          >
+            쿼리 파람을 사용하여 검색조건 기억하기 방법
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>
