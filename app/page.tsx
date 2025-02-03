@@ -96,6 +96,20 @@ export default function Home() {
           >
             쿼리 파람을 사용하여 검색조건 기억하기 방법
           </Link>
+          <Link
+            href={{
+              pathname: "/file-download",
+            }}
+          >
+            파일 다운로드 프로그래스 샘플
+          </Link>
+          <Link
+            href={{
+              pathname: "/ws-page",
+            }}
+          >
+            websocket 샘플
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.63.0",
+    "@types/ws": "^8.5.14",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "firebase": "^11.2.0",
@@ -22,6 +23,7 @@
     "nextjs-toploader": "^3.7.15",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "ws": "^8.18.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

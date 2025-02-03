@@ -12,7 +12,7 @@ const handler = NextAuth({
   jwt: {
     encryption: true, // JWT 암호화 활성화
   },
-  debug: true,
+  debug: process.env.NODE_ENV !== "production", //https://next-auth.js.org/warnings#debug_enabled 이슈 해결을 위한 설정
   cookies: {
     sessionToken: {
       name: "next-auth.session-token",

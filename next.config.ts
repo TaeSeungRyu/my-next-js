@@ -56,6 +56,7 @@ const nextConfig: NextConfig = {
     FIRE_BASE_MESSAGINGSENDERID: process.env.FIRE_BASE_MESSAGINGSENDERID,
     FIRE_BASE_APPID: process.env.FIRE_BASE_APPID,
     FIRE_BASE_MEASUREMENTID: process.env.FIRE_BASE_MEASUREMENTID,
+    NEXTAUTH_URL: process.env.NEXTAUTH_URL, // https://next-auth.js.org/warnings#nextauth_url 이슈 반영 url 추가
   },
   compress: true,
   images: {
