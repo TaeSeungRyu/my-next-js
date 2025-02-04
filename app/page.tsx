@@ -110,6 +110,13 @@ export default function Home() {
           >
             websocket 샘플
           </Link>
+          <Link
+            href={{
+              pathname: "/sse",
+            }}
+          >
+            sse 샘플
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>
