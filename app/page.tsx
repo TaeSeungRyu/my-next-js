@@ -117,6 +117,13 @@ export default function Home() {
           >
             sse 샘플
           </Link>
+          <Link
+            href={{
+              pathname: "/lazy",
+            }}
+          >
+            lazy 샘플
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>
