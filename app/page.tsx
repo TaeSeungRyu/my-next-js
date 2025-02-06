@@ -124,6 +124,13 @@ export default function Home() {
           >
             lazy 샘플
           </Link>
+          <Link
+            href={{
+              pathname: "/web-worker",
+            }}
+          >
+            web worker 샘플
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>
