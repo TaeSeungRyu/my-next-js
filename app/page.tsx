@@ -138,6 +138,13 @@ export default function Home() {
           >
             웹소켓 + web worker 샘플
           </Link>
+          <Link
+            href={{
+              pathname: "/ol",
+            }}
+          >
+            openlayers 샘플
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>
