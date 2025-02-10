@@ -29,7 +29,7 @@ export default function ChatPage() {
         const data = JSON.parse(event.data);
         if (data.type === "id") {
           setUserId(data.id);
-        } else if (data.type === "private" || data.type === "broadcast") {
+        } else if (data?.type === "private" || data?.type === "broadcast") {
           setMessages((prevMessages) => [
             ...prevMessages,
             {

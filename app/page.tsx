@@ -131,6 +131,13 @@ export default function Home() {
           >
             web worker 샘플
           </Link>
+          <Link
+            href={{
+              pathname: "/ws-page/ws-v2",
+            }}
+          >
+            웹소켓 + web worker 샘플
+          </Link>
         </div>
         <DarkModeBtn></DarkModeBtn>
       </div>

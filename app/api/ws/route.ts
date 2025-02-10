@@ -11,47 +11,60 @@ let clients: Client[] = [];
 
 export async function GET() {
   if (!wss) {
-    // 포트번호는 원하는 포트로 변경하여 사용
     wss = new WebSocketServer({ port: 3001 });
 
     wss.on("connection", (ws) => {
-      const clientId = Math.random().toString(36).substring(7); // 고유한 사용자의 ID 값을 임의로 생성, DB를 연동시킨다면 해당 부분을 수정
+      const clientId = Math.random().toString(36).substring(7);
       clients.push({ id: clientId, ws });
+
       ws.send(JSON.stringify({ type: "id", id: clientId }));
+
       ws.on("message", (message: string) => {
-        const data = JSON.parse(message);
-        // 개인에게 메시지 전송
-        if (data.type === "private") {
-          const recipient = clients.find((client) => client.id === data.to);
-          if (recipient) {
-            recipient.ws.send(
-              JSON.stringify({
-                type: "private",
-                from: data.from,
-                message: data.message,
-              })
-            );
-          }
-          // 전역으로 메시지 전송
-        } else if (data.type === "broadcast") {
-          clients.forEach((client) => {
-            if (client.id !== data.from) {
-              client.ws.send(
+        try {
+          const data = JSON.parse(message.toString()); // ✅ Buffer 처리
+          console.log("📩 받은 메시지:", data);
+          if (data.type === "private") {
+            const recipient = clients.find((client) => client.id === data.to);
+            if (recipient && recipient.ws.readyState === WebSocket.OPEN) {
+              // ✅ 연결된 클라이언트인지 확인
+              recipient.ws.send(
                 JSON.stringify({
-                  type: "broadcast",
+                  type: "private",
                   from: data.from,
                   message: data.message,
                 })
               );
             }
-          });
+          } else if (data.type === "broadcast") {
+            console.log("📢 브로드캐스트 메시지 전송");
+            clients.forEach((client) => {
+              if (client.ws.readyState === WebSocket.OPEN) {
+                // ✅ 닫힌 WebSocket 방지
+                client.ws.send(
+                  JSON.stringify({
+                    type: "broadcast",
+                    from: data.from,
+                    message: data.message,
+                  })
+                );
+              }
+            });
+          } else {
+            console.error("❌ 알 수 없는 메시지 유형:", data);
+          }
+        } catch (error) {
+          console.error("❌ 메시지 처리 중 오류 발생:", error);
         }
       });
+
       ws.on("close", () => {
         clients = clients.filter((client) => client.ws !== ws);
-        console.log(`Client disconnected: ${clientId}`);
+        console.log(`❌ 클라이언트 연결 종료: ${clientId}`);
       });
     });
+
+    console.log("✅ WebSocket 서버 실행 중 (포트: 3001)");
   }
+
   return NextResponse.json({ message: "WebSocket server is running" });
 }
