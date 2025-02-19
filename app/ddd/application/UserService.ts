@@ -1,6 +1,12 @@
 import { UserRepository } from "../domain/user/UserRepository";
 
 //[use case] Application Layer
+
+export type validateType = {
+  result: boolean;
+  message: string;
+};
+
 export class UserService {
   constructor(private userRepo: UserRepository) {}
   async signIn(username: string, password: string) {
@@ -8,5 +14,25 @@ export class UserService {
   }
   async signUp(username: string, password: string, name: string | null) {
     return this.userRepo.insertUser(username, password, name);
+  }
+
+  validateDataBeforInsert(
+    username: string,
+    password: string,
+    name: string | null
+  ): validateType {
+    if (!username || !password || !name) {
+      return { result: false, message: "데이터를 입력해주세요" };
+    }
+    if (password.length < 6) {
+      return { result: false, message: "비밀 번호 길이가 6자이하 입니다" };
+    }
+    if (!/^[a-zA-Z0-9]+$/.test(username)) {
+      return {
+        result: false,
+        message: "아이디는 영문과 숫자로만 입력해주세요",
+      };
+    }
+    return { result: true, message: "" };
   }
 }
