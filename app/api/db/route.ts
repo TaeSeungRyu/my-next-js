@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    const queryResult = SqlLiteDB.prepare("SELECT * FROM SampleData").all();
+    const queryResult = SqlLiteDB.prepare("SELECT * FROM User").all();
     return NextResponse.json({ data: queryResult }, { status: 200 });
   } catch (error: any) {
     console.error(error);
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   try {
     const { random_number, random_text } = await req.json();
     const insert = SqlLiteDB.prepare(
-      "INSERT INTO SampleData (random_number, random_text) VALUES ($random_number, $random_text)"
+      "INSERT INTO User (random_number, random_text) VALUES ($random_number, $random_text)"
     );
     const insertResult = insert.run({
       random_number: random_number,
