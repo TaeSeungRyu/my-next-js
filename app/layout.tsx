@@ -3,7 +3,6 @@ import { Geist } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import AttributeProviders from "./providers/AttributeProviders";
-import SegmentExample from "./components/SegmentExample";
 
 //폰트 주입 샘플
 const geistSans = Geist({
@@ -29,7 +28,6 @@ export default async function RootLayout({
         className={`${geistSans.variable} text-[#119595] dark:bg-gray-900 text-black dark:text-white`}
       >
         <NextTopLoader color="red" crawlSpeed={500} />
-        <SegmentExample></SegmentExample>
         <AttributeProviders>{children}</AttributeProviders>
       </body>
     </html>
