@@ -35,4 +35,20 @@ export class UserRepositoryImpl implements UserRepository {
       }
     });
   }
+  async findMe() {
+    const meResult = await fetch(`/api/user/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return new Promise(async (resolve, reject) => {
+      if (meResult.ok) {
+        const { data } = await meResult.json();
+        resolve(new CommonResponse({ data, sucess: true }));
+      } else {
+        reject(new Error("DB Insert Error"));
+      }
+    });
+  }
 }

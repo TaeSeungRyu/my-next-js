@@ -8,4 +8,5 @@ export interface UserRepository {
     password: string,
     name: string | null
   ): Promise<any>;
+  findMe(): Promise<any>;
 }

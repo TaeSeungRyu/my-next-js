@@ -32,7 +32,7 @@ const SignupPageComponent = () => {
   };
 
   const testMe = () => {
-    fetch("/api/user/me?username=admin", {
+    fetch("/api/user/me", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

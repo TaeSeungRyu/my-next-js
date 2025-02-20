@@ -1,5 +1,3 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/utils/authOptions";
 import { NextRequest, NextResponse } from "next/server";
 import { CommonResponse } from "@/app/ddd/domain/CommonResponse";
 import { getToken, decode } from "next-auth/jwt";

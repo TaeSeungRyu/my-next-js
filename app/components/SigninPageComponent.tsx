@@ -13,7 +13,6 @@ const SigninPageComponent = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const singinResult = await useUserService.signIn(username, password);
-    console.log(singinResult); //여기 코드 DDD로 리해야 한다
     if (singinResult.status === 200) {
       router.push("/board");
     }

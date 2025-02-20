@@ -16,6 +16,10 @@ export class UserService {
     return this.userRepo.insertUser(username, password, name);
   }
 
+  async findMe() {
+    return this.userRepo.findMe();
+  }
+
   validateDataBeforInsert(
     username: string,
     password: string,

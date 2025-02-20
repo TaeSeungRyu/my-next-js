@@ -13,11 +13,5 @@ export default async function RootLayout({
   if (!session) {
     redirect("/error");
   }
-  console.log("wtf", session);
-  return (
-    <>
-      <div>사용자 이름 : {session.user.name}</div>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
