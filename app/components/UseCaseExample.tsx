@@ -1,21 +1,16 @@
 "use client";
 import { useState } from "react";
-import { animate, fetchUserRepos } from "../ddd/actions";
 
+//삭제 예정
 export default function UseCaseExample() {
   const [username, setUsername] = useState("");
   const [repos, setRepos] = useState<
     { id: number; name: string; description: string | null; stars: number }[]
   >([]);
 
-  const handleSearch = async () => {
-    const data = await fetchUserRepos(username);
-    setRepos(data);
-  };
+  const handleSearch = async () => {};
 
-  const handleAnimation = () => {
-    animate(document.getElementById("ELEMENT")!);
-  };
+  const handleAnimation = () => {};
 
   return (
     <div>

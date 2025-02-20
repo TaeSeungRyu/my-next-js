@@ -1,21 +1,24 @@
+import { CommonResponse } from "@/app/ddd/domain/CommonResponse";
 import SqlLiteDB from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
-    const { username } = await req.json();
-    const insert = SqlLiteDB.prepare(
-      "SELECT username, name FROM User WHERE username = $username"
+    const username = req.nextUrl.searchParams.get("username");
+    const select = SqlLiteDB.prepare(
+      "SELECT username, name FROM User WHERE username = ?"
     );
-    const selectResult = insert.run({
-      username,
-    });
-    return NextResponse.json({ result: selectResult }, { status: 200 });
+    const selectResult: any = select.get(username);
+    return NextResponse.json(
+      new CommonResponse({ data: selectResult, status: 200 })
+    );
   } catch (error: any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal server error", details: error.message },
-      { status: 500 }
+      new CommonResponse({
+        error: "Internal server error",
+        details: error.message,
+      })
     );
   }
 }

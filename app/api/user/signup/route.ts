@@ -1,3 +1,4 @@
+import { CommonResponse } from "@/app/ddd/domain/CommonResponse";
 import SqlLiteDB from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -12,12 +13,14 @@ export async function POST(req: NextRequest) {
       password,
       name,
     });
-    return NextResponse.json({ result: insertResult }, { status: 200 });
+    return NextResponse.json(new CommonResponse(insertResult));
   } catch (error: any) {
     console.error(error);
     return NextResponse.json(
-      { error: "Internal server error", details: error.message },
-      { status: 500 }
+      new CommonResponse({
+        error: "Internal server error",
+        details: error.message,
+      })
     );
   }
 }

@@ -1,16 +1,17 @@
 import { signIn } from "next-auth/react";
 
 import { UserRepository } from "../../domain/user/UserRepository";
+import { CommonResponse } from "../../domain/CommonResponse";
 
 //[use case] Infrastructure Layer
 export class UserRepositoryImpl implements UserRepository {
   async findOneUser(username: string, password: string) {
-    const singinResult = await signIn("credentials", {
+    const singinResult: any = await signIn("credentials", {
       username,
       password,
       redirect: false,
     });
-    return singinResult;
+    return new CommonResponse(singinResult);
   }
 
   async insertUser(

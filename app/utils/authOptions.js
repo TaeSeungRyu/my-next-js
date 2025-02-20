@@ -22,12 +22,10 @@ export const authOptions = {
         const prepare = SqlLiteDB.prepare(
           "SELECT * FROM User WHERE password = $password AND username = $username"
         );
-        console.log(22222);
         const user = prepare.get({
           username: credentials.username,
           password: credentials.password,
         });
-        console.log(33333);
         if (user) {
           return user;
         }

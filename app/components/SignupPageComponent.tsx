@@ -23,18 +23,31 @@ const SignupPageComponent = () => {
       return;
     }
     if (!confirm("회원가입 하시겠습니까?")) return;
-    const { result } = await useUserService.signUp(username, password, name); //나중에 응답 타입에 대한 정의는 필수!
-    if (result.changes == 1) {
+    const result = await useUserService.signUp(username, password, name); //나중에 응답 타입에 대한 정의는 필수!
+    if (result.status === 200) {
       alert("회원가입이 완료되었습니다.");
     } else {
       alert("회원가입에 실패하였습니다.");
     }
   };
 
+  const testMe = () => {
+    fetch("/api/user/me?username=admin", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-2xl shadow-lg">
+          <div onClick={testMe}>test</div>
+
           <h2 className="text-2xl font-bold text-center text-gray-900">
             회원가입
           </h2>
