@@ -18,7 +18,6 @@ export const authOptions = {
       },
       //요청 샘플 입니다.
       async authorize(credentials) {
-        console.log(credentials.username, credentials.password);
         const prepare = SqlLiteDB.prepare(
           "SELECT * FROM User WHERE password = $password AND username = $username"
         );
@@ -26,6 +25,7 @@ export const authOptions = {
           username: credentials.username,
           password: credentials.password,
         });
+        console.log("login from db : ", user);
         if (user) {
           return user;
         }

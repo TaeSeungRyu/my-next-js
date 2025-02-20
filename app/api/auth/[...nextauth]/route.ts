@@ -1,17 +1,15 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
+import { JWT } from "next-auth/jwt";
 
 const handler = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
-  credentials: "include",
+
   session: {
-    jwt: true,
     strategy: "jwt",
-    secureCookie: process.env.NODE_ENV === "production",
   },
-  jwt: {
-    encryption: true, // JWT 암호화 활성화
-  },
+  useSecureCookies: process.env.NODE_ENV === "production", //https://next-auth.js.org/warnings#use_secure_cookies 이슈 해결을 위한 설정
+
   debug: process.env.NODE_ENV !== "production", //https://next-auth.js.org/warnings#debug_enabled 이슈 해결을 위한 설정
   cookies: {
     sessionToken: {
@@ -26,17 +24,16 @@ const handler = NextAuth({
   },
   providers: authOptions.providers,
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, session }): Promise<JWT> {
       if (user) {
-        token.role = user.role; //사용자 정의 필드 추가
-        token.accessToken = user.accessToken; //사용자 정의 필드 추가
+        token.username = user.username; //사용자 정의 필드 추가
       }
       return token;
     },
     async session({ session, token }) {
-      if (session.user && token.role) session.user.role = token.role; //사용자 정의 필드 추가
-      if (session.accessToken && token.accessToken)
-        session.user.accessToken = token.accessToken; //사용자 정의 필드 추가
+      if (token) {
+        session.user.username = token.username; //사용자 정의 필드 추가
+      }
       return session;
     },
   },
