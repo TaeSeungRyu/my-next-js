@@ -6,3 +6,13 @@ export class CashedItem {
     public number: number
   ) {}
 }
+
+export class Board {
+  constructor(
+    public index: number | null,
+    public title: string,
+    public contents: string,
+    public username: string,
+    public reg_date: string
+  ) {}
+}

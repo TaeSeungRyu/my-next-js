@@ -24,6 +24,11 @@ const tableArray = [
   {
     name: "board",
     columns: [
+      {
+        name: "index",
+        type: "INTEGER",
+        constraint: "PRIMARY KEY AUTOINCREMENT",
+      },
       { name: "title", type: "TEXT", constraint: "NOT NULL" },
       { name: "contents", type: "TEXT", constraint: "NOT NULL" },
       { name: "username", type: "TEXT", constraint: "NOT NULL" },
