@@ -21,6 +21,15 @@ const tableArray = [
       { name: "number", type: "INTEGER", constraint: "NOT NULL" },
     ],
   },
+  {
+    name: "board",
+    columns: [
+      { name: "title", type: "TEXT", constraint: "NOT NULL" },
+      { name: "contents", type: "TEXT", constraint: "NOT NULL" },
+      { name: "username", type: "TEXT", constraint: "NOT NULL" },
+      { name: "reg_date", type: "TEXT", constraint: "NOT NULL" },
+    ],
+  },
 ];
 
 // 초기화 체크 파일이 없으면 아래 코드 동작(저어엉말 db도 쓸꺼면 서버 초기 런타임에 추가하는 방법으로 분리!)
