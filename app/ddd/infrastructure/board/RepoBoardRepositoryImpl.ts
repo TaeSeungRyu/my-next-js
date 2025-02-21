@@ -2,7 +2,7 @@ import { BoardRepository } from "../../domain/board/BoardRepository";
 import { Board } from "../../domain/board/Repo";
 import { CommonResponse } from "../../domain/CommonResponse";
 
-export class RepoBoardRepository implements BoardRepository {
+export class RepoBoardRepositoryImpl implements BoardRepository {
   async selectAll(): Promise<CommonResponse> {
     const meResult = await fetch(`/api/board`, {
       method: "GET",

@@ -1,14 +1,14 @@
+import { BoardRepository } from "../domain/board/BoardRepository";
 import { CashedItemRepository } from "../domain/board/CashedItemRepository";
 import { CommonResponse } from "../domain/CommonResponse";
-import { RepoBoardRepository } from "../infrastructure/board/RepoBoardRepository";
 
 export class BoardService {
   private static instance: BoardService;
   private repository: CashedItemRepository;
-  private repository2: RepoBoardRepository;
+  private repository2: BoardRepository;
   private constructor(
     repository: CashedItemRepository,
-    repository2: RepoBoardRepository
+    repository2: BoardRepository
   ) {
     this.repository = repository;
     this.repository2 = repository2;
@@ -17,7 +17,7 @@ export class BoardService {
   //싱글톤 패턴 적용
   static getInstance(
     repository: CashedItemRepository,
-    repository2: RepoBoardRepository
+    repository2: BoardRepository
   ): BoardService {
     if (!BoardService.instance) {
       BoardService.instance = new BoardService(repository, repository2);

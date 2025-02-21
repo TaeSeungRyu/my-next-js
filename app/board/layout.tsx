@@ -7,8 +7,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  //세션에서 리다이렉트 하는 방법
-  //세부 정보를 얻고 싶으면 getServerSession는 캐스캐이딩 이슈가 있으니 call api 하자
+  //로그인 여부 확인
   const session = await getServerSession(authOptions);
   if (!session) {
     console.log(session);

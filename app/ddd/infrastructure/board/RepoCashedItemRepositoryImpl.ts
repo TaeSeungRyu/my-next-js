@@ -1,7 +1,7 @@
 import { CashedItemRepository } from "../../domain/board/CashedItemRepository";
 import { CommonResponse } from "../../domain/CommonResponse";
 
-export class RepoCashedItemRepository implements CashedItemRepository {
+export class RepoCashedItemRepositoryImpl implements CashedItemRepository {
   async selectAll(): Promise<CommonResponse> {
     const meResult = await fetch(`/api/board/cashed`, {
       method: "GET",
