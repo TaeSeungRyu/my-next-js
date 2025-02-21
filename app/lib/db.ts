@@ -25,7 +25,7 @@ const tableArray = [
     name: "board",
     columns: [
       {
-        name: "index",
+        name: "idx",
         type: "INTEGER",
         constraint: "PRIMARY KEY AUTOINCREMENT",
       },
@@ -58,7 +58,7 @@ if (!fs.existsSync(INIT_FILE)) {
         SqlLiteDB.exec(
           "INSERT INTO User (username, password, name) VALUES ('admin', 'admin', '관리자')"
         ); // 데이터 삽입
-      } else {
+      } else if (table.name === "CashedTable") {
         SqlLiteDB.exec(
           "INSERT INTO CashedTable (title, description, number) VALUES ('title data1', 'description 1', 1000)"
         ); // 데이터 삽입

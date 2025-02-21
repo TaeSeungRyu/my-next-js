@@ -9,7 +9,7 @@ export class CashedItem {
 
 export class Board {
   constructor(
-    public index: number | null,
+    public idx: number | null,
     public title: string,
     public contents: string,
     public username: string,

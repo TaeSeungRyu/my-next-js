@@ -7,11 +7,11 @@ import exp from "constants";
 export async function GET(request: NextRequest) {
   try {
     let queryResult = null;
-    if (request.nextUrl?.searchParams?.get("index")) {
-      const index = request.nextUrl.searchParams.get("index");
-      queryResult = SqlLiteDB.prepare(
-        "SELECT * FROM board WHERE index = ?"
-      ).get([index]);
+    if (request.nextUrl?.searchParams?.get("idx")) {
+      const idx = request.nextUrl.searchParams.get("idx");
+      queryResult = SqlLiteDB.prepare("SELECT * FROM board WHERE idx = ?").get([
+        idx,
+      ]);
     } else {
       queryResult = SqlLiteDB.prepare("SELECT * FROM board").all();
     }
@@ -59,10 +59,10 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const { index, title, contents, username } = await request.json();
+    const { idx, title, contents, username } = await request.json();
     SqlLiteDB.prepare(
-      "UPDATE board SET title = ?, contents = ?, username = ? WHERE index = ?"
-    ).run([title, contents, username, index]);
+      "UPDATE board SET title = ?, contents = ?, username = ? WHERE idx = ?"
+    ).run([title, contents, username, idx]);
     return NextResponse.json(
       new CommonResponse({ success: true, data: "Updated" })
     );
