@@ -43,7 +43,7 @@ export class UserService {
   }
 
   alterLocalStorage(data: any, calback: Function | null) {
-    if (data == null) {
+    if (data == null || Object.keys(data).length === 0) {
       localStorage.removeItem(this.CONTEXT_KEY);
     } else {
       localStorage.setItem(this.CONTEXT_KEY, JSON.stringify(data));

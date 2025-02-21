@@ -13,6 +13,14 @@ const tableArray = [
       { name: "name", type: "TEXT", constraint: "NOT NULL" },
     ],
   },
+  {
+    name: "CashedTable",
+    columns: [
+      { name: "title", type: "TEXT", constraint: "NOT NULL" },
+      { name: "description", type: "TEXT", constraint: "NOT NULL" },
+      { name: "number", type: "INTEGER", constraint: "NOT NULL" },
+    ],
+  },
 ];
 
 // 초기화 체크 파일이 없으면 아래 코드 동작(저어엉말 db도 쓸꺼면 서버 초기 런타임에 추가하는 방법으로 분리!)
@@ -29,13 +37,21 @@ if (!fs.existsSync(INIT_FILE)) {
     ).get(`${table.name}`);
 
     if (tableExists && tableExists?.count > 0) {
-      console.log("");
+      console.log("table name : ", table.name);
     } else {
-      console.log("테이블이 없습니다.");
       SqlLiteDB.exec(`CREATE TABLE ${table.name} (${columns})`); // 테이블 생성
-      SqlLiteDB.exec(
-        "INSERT INTO User (username, password, name) VALUES ('admin', 'admin', '관리자')"
-      ); // 데이터 삽입
+      if (table.name === "User") {
+        SqlLiteDB.exec(
+          "INSERT INTO User (username, password, name) VALUES ('admin', 'admin', '관리자')"
+        ); // 데이터 삽입
+      } else {
+        SqlLiteDB.exec(
+          "INSERT INTO CashedTable (title, description, number) VALUES ('title data1', 'description 1', 1000)"
+        ); // 데이터 삽입
+        SqlLiteDB.exec(
+          "INSERT INTO CashedTable (title, description, number) VALUES ('title data2', 'description 2', 2000)"
+        ); // 데이터 삽입
+      }
     }
   });
   fs.writeFileSync(INIT_FILE, "initialized");
