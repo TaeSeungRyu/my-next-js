@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { CommonResponse } from "@/app/ddd/domain/CommonResponse";
-import { getToken, decode } from "next-auth/jwt";
 import SqlLiteDB from "@/app/lib/db";
-import exp from "constants";
 
 export async function GET(request: NextRequest) {
   try {

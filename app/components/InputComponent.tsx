@@ -6,7 +6,7 @@ type InputFieldProps = {
   type?: string;
   placeholder?: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: any) => void;
   className?: string;
 };
 
@@ -21,14 +21,23 @@ const InputField: React.FC<InputFieldProps> = ({
   return (
     <div className={`flex flex-col space-y-2 ${className}`}>
       <label className="text-sm font-medium text-gray-700">{label}</label>
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-        autoComplete="off"
-      />
+      {type === "textarea" ? (
+        <textarea
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none"
+        />
+      ) : (
+        <input
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          autoComplete="off"
+        />
+      )}
     </div>
   );
 };
