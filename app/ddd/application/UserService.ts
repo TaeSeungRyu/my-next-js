@@ -8,6 +8,8 @@ export type validateType = {
 };
 
 export class UserService {
+  private CONTEXT_KEY = "LoginContextProviderKey";
+
   constructor(private userRepo: UserRepository) {}
   async signIn(username: string, password: string) {
     return this.userRepo.findOneUser(username, password);
@@ -38,5 +40,22 @@ export class UserService {
       };
     }
     return { result: true, message: "" };
+  }
+
+  alterLocalStorage(data: any, calback: Function | null) {
+    if (data == null) {
+      localStorage.removeItem(this.CONTEXT_KEY);
+    } else {
+      localStorage.setItem(this.CONTEXT_KEY, JSON.stringify(data));
+    }
+    if (calback) {
+      calback();
+    }
+  }
+  get getLocalStorage() {
+    if (localStorage.getItem(this.CONTEXT_KEY) == null) {
+      return null;
+    }
+    return JSON.parse(localStorage.getItem(this.CONTEXT_KEY) as string);
   }
 }

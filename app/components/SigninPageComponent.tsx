@@ -1,11 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "./InputComponent";
 import { useUserService } from "../ddd/actions";
 import { useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 const SigninPageComponent = () => {
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session) {
+      signOut({ redirect: false });
+      useUserService.alterLocalStorage(null, null);
+    }
+  }, []);
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

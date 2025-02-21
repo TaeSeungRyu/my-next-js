@@ -11,6 +11,7 @@ export default async function RootLayout({
   //세부 정보를 얻고 싶으면 getServerSession는 캐스캐이딩 이슈가 있으니 call api 하자
   const session = await getServerSession(authOptions);
   if (!session) {
+    console.log(session);
     redirect("/error");
   }
   return <>{children}</>;
