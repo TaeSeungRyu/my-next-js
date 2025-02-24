@@ -7,6 +7,8 @@ import { LoginContext } from "./LoginContextProvider";
 import { useBoardService } from "../ddd/actions";
 import { Board } from "../ddd/domain/board/Repo";
 
+const BoardQueryKey = "boardList";
+
 const BoardCRUDComponent = () => {
   const { loginData }: any = useContext(LoginContext);
   const queryClient = useQueryClient();
@@ -16,7 +18,7 @@ const BoardCRUDComponent = () => {
 
   // ✅ 게시글 목록 불러오기 (useQuery 사용)
   const { data: boardList = [], refetch } = useQuery({
-    queryKey: ["boardList"],
+    queryKey: [BoardQueryKey],
     queryFn: async () => {
       const { data }: any = await useBoardService.selectDataAll();
       return data;
@@ -33,7 +35,7 @@ const BoardCRUDComponent = () => {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["boardList"] });
+      queryClient.invalidateQueries({ queryKey: [BoardQueryKey] });
       setTitle(""); // 입력 필드 초기화
       setContents("");
     },
@@ -46,7 +48,7 @@ const BoardCRUDComponent = () => {
     },
     onMutate: () => {
       // 낙관적 업데이트: 데이터가 등록되기 전에 화면을 먼저 업데이트
-      queryClient.setQueryData(["boardList"], (oldData: any) => [
+      queryClient.setQueryData([BoardQueryKey], (oldData: any) => [
         ...oldData,
         { title, contents, username: loginData.username, idx: Date.now() }, // 임시 데이터 추가
       ]);
@@ -54,7 +56,7 @@ const BoardCRUDComponent = () => {
     onError: (error, variables, context) => {
       // 실패 시 롤백: 화면에 반영한 데이터를 취소
       console.error("등록 실패", error);
-      queryClient.invalidateQueries({ queryKey: ["boardList"] });
+      queryClient.invalidateQueries({ queryKey: [BoardQueryKey] });
     },
     onSuccess: () => {
       // 성공 시 데이터를 다시 불러와서 최신 상태로 유지
@@ -68,7 +70,7 @@ const BoardCRUDComponent = () => {
       await useBoardService.deleteData(idx);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["boardList"] });
+      queryClient.invalidateQueries({ queryKey: [BoardQueryKey] });
     },
   });
 
@@ -77,10 +79,8 @@ const BoardCRUDComponent = () => {
     item: Board,
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    queryClient.setQueryData(["boardList"], (prevList: Board[]) =>
-      prevList.map((board) =>
-        board.idx === item.idx ? { ...board, [key]: e.target.value } : board
-      )
+    queryClient.setQueryData([BoardQueryKey], (prevList: Board[]) =>
+      useBoardService.changeBoardItem(key, prevList, item, e)
     );
   };
 
