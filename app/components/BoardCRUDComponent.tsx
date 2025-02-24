@@ -15,7 +15,7 @@ const BoardCRUDComponent = () => {
   const [contents, setContents] = useState("");
 
   // ✅ 게시글 목록 불러오기 (useQuery 사용)
-  const { data: boardList = [] } = useQuery({
+  const { data: boardList = [], refetch } = useQuery({
     queryKey: ["boardList"],
     queryFn: async () => {
       const { data }: any = await useBoardService.selectDataAll();
@@ -44,8 +44,21 @@ const BoardCRUDComponent = () => {
     mutationFn: async (item: Board) => {
       await useBoardService.updateData(item);
     },
-    onSuccess: () => {
+    onMutate: () => {
+      // 낙관적 업데이트: 데이터가 등록되기 전에 화면을 먼저 업데이트
+      queryClient.setQueryData(["boardList"], (oldData: any) => [
+        ...oldData,
+        { title, contents, username: loginData.username, idx: Date.now() }, // 임시 데이터 추가
+      ]);
+    },
+    onError: (error, variables, context) => {
+      // 실패 시 롤백: 화면에 반영한 데이터를 취소
+      console.error("등록 실패", error);
       queryClient.invalidateQueries({ queryKey: ["boardList"] });
+    },
+    onSuccess: () => {
+      // 성공 시 데이터를 다시 불러와서 최신 상태로 유지
+      refetch();
     },
   });
 
@@ -102,19 +115,19 @@ const BoardCRUDComponent = () => {
         <table className="min-w-full table-auto border-collapse border border-gray-300">
           <thead className="bg-gray-200">
             <tr>
-              <th className="px-4 py-2 text-left border-b border-gray-300">
+              <th className="px-4 py-1 text-left border-b border-gray-300">
                 번호
               </th>
-              <th className="px-4 py-2 text-left border-b border-gray-300">
+              <th className="px-4 py-1 text-left border-b border-gray-300">
                 제목
               </th>
-              <th className="px-4 py-2 text-left border-b border-gray-300">
+              <th className="px-4 py-1 text-left border-b border-gray-300">
                 내용
               </th>
-              <th className="px-4 py-2 text-left border-b border-gray-300">
+              <th className="px-4 py-1 text-left border-b border-gray-300">
                 작성자
               </th>
-              <th className="px-4 py-2 text-left border-b border-gray-300">
+              <th className="px-4 py-1 text-left border-b border-gray-300">
                 수정/삭제
               </th>
             </tr>
@@ -122,10 +135,10 @@ const BoardCRUDComponent = () => {
           <tbody>
             {boardList.map((item: Board, index: number) => (
               <tr className="hover:bg-gray-100" key={index}>
-                <td className="px-4 py-2 border-b border-gray-300">
+                <td className="px-4 py-1 border-b border-gray-300">
                   {item.idx}
                 </td>
-                <td className="px-4 py-2 border-b border-gray-300">
+                <td className="px-4 py-1 border-b border-gray-300">
                   <InputField
                     label="제목"
                     type="text"
@@ -133,7 +146,7 @@ const BoardCRUDComponent = () => {
                     onChange={(e) => changeBoardItem("title", item, e)}
                   />
                 </td>
-                <td className="px-4 py-2 border-b border-gray-300">
+                <td className="px-4 py-1 border-b border-gray-300">
                   <InputField
                     label="내용"
                     type="textarea"
@@ -141,10 +154,10 @@ const BoardCRUDComponent = () => {
                     onChange={(e) => changeBoardItem("contents", item, e)}
                   />
                 </td>
-                <td className="px-4 py-2 border-b border-gray-300">
+                <td className="px-4 py-1 border-b border-gray-300">
                   {item.username}
                 </td>
-                <td className="px-4 py-2 border-b border-gray-300 space-x-2">
+                <td className="px-4 py-1 border-b border-gray-300 space-x-2">
                   <button
                     className="px-2 py-1 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                     onClick={() => updateMutation.mutate(item)}

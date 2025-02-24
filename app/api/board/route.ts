@@ -57,10 +57,19 @@ export async function POST(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
+    //일부러 3초 지연 추가
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    //일부러 랜덤 실패 (20% 확률로 실패)
+    if (Math.random() < 0.2) {
+      throw new Error("Random failure occurred");
+    }
+
     const { idx, title, contents, username } = await request.json();
     SqlLiteDB.prepare(
       "UPDATE board SET title = ?, contents = ?, username = ? WHERE idx = ?"
     ).run([title, contents, username, idx]);
+
     return NextResponse.json(
       new CommonResponse({ success: true, data: "Updated" })
     );
@@ -71,7 +80,8 @@ export async function PUT(request: NextRequest) {
         success: false,
         error: "Internal server error",
         details: error.message,
-      })
+      }),
+      { status: 500 }
     );
   }
 }
