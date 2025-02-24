@@ -78,8 +78,8 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const { index } = await request.json();
-    SqlLiteDB.prepare("DELETE FROM board WHERE index = ?").run([index]);
+    const idx = await request.nextUrl?.searchParams.get("idx");
+    SqlLiteDB.prepare("DELETE FROM board WHERE idx = ?").run([idx]);
     return NextResponse.json(
       new CommonResponse({ success: true, data: "Deleted" })
     );

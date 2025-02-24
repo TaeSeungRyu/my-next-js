@@ -1,5 +1,6 @@
 import { BoardRepository } from "../domain/board/BoardRepository";
 import { CashedItemRepository } from "../domain/board/CashedItemRepository";
+import { Board } from "../domain/board/Repo";
 import { CommonResponse } from "../domain/CommonResponse";
 
 export class BoardService {
@@ -48,5 +49,11 @@ export class BoardService {
   async deleteData(id: number): Promise<CommonResponse> {
     const data = await this.repository2.delete(id);
     return data;
+  }
+
+  changeBoardItem(key: string, prevList: any, item: any, e: any) {
+    return prevList.map((board: Board) =>
+      board.idx === item.idx ? { ...board, [key]: e.target.value } : board
+    );
   }
 }
