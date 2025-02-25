@@ -1,5 +1,6 @@
 import { Sign } from "crypto";
 import SigninPageComponent from "./components/SigninPageComponent";
+import P2PConnection from "./components/P2PConnection";
 
 export default function Home() {
   return (
@@ -8,6 +9,8 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-center text-gray-900">😁</h2>
         <SigninPageComponent />
       </div>
+      <div>P2PConnection</div>
+      <P2PConnection />
     </div>
   );
 }
