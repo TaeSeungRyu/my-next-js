@@ -5,6 +5,7 @@ import InputField from "./InputComponent";
 import { useUserService } from "../ddd/actions";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 const SigninPageComponent = () => {
   const { data: session } = useSession();
@@ -49,6 +50,7 @@ const SigninPageComponent = () => {
         >
           로그인
         </button>
+        <Button type="button">로깅(npx shadcn@latest add button)</Button>
       </form>
       <p className="text-sm text-center text-gray-600">
         계정이 없으신가요?{" "}
